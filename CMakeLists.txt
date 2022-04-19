@@ -20,10 +20,11 @@ set("RE2C_VERSION" 3.0)
 find_package(RE2C REQUIRED)
 
 RE2C_TARGET(NAME preprocessor INPUT ${PROJECT_SOURCE_DIR}/preprocessor.re OUTPUT preprocessor.cpp OPTIONS "-i")
+RE2C_TARGET(NAME lexer INPUT ${PROJECT_SOURCE_DIR}/lexer.re OUTPUT lexer.cpp OPTIONS "-i")
 
 file(GLOB srcs
         "${PROJECT_SOURCE_DIR}/src/*.cpp"
         "${PROJECT_SOURCE_DIR}/include/*.h"
         )
 
-add_executable(sherlock ${srcs} preprocessor.cpp)
+add_executable(sherlock ${srcs} preprocessor.cpp lexer.cpp)

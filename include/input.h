@@ -3,15 +3,16 @@
 
 #include <cstdio>
 #include <memory>
+#include <string>
 
 static const size_t SIZE = 64 * 1024;
 
 struct input_t {
-    std::unique_ptr<unsigned char[]> buf;
-    unsigned char *lim;
-    unsigned char *cur;
-    unsigned char *mar;
-    unsigned char *tok;
+    std::unique_ptr<char[]> buf;
+    char *lim;
+    char *cur;
+    char *mar;
+    char *tok;
     bool eof = false;
     int max_fill;
 

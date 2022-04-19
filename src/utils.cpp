@@ -2,9 +2,9 @@
 
 using std::string;
 
-std::string extract_match(const unsigned char *start, const unsigned char *end) {
+std::string extract_str(const char *start, const char *end) {
     string i;
-    for (const unsigned char *f = start;  f < end; ++f) {
+    for (const char *f = start;  f < end; ++f) {
         i += *f;
     }
 

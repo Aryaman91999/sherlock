@@ -10,7 +10,7 @@ using std::cerr, std::cout, std::filesystem::path;
 
 #define line_marking(f, l) "# \"" << f << "\" " << l << "\n"
 
-/*!re2c re2c:define:YYCTYPE = "unsigned char"; */
+/*!re2c re2c:define:YYCTYPE = "char"; */
 /*!maxnmatch:re2c*/
 
 
@@ -25,10 +25,10 @@ int preprocess(const std::string &filename, std::ostream &out) {
 
     for (;;) {
         in.tok = in.cur;
-        const unsigned char *yypmatch[YYMAXNMATCH * 2];
+        const char *yypmatch[YYMAXNMATCH * 2];
         size_t yynmatch;
 
-        /*!stags:re2c format = 'const unsigned char *@@;\n'; */
+        /*!stags:re2c format = 'const char *@@;\n'; */
 
         /*!re2c
             re2c:yyfill:enable = 1;
@@ -48,7 +48,7 @@ int preprocess(const std::string &filename, std::ostream &out) {
             }
 
             ("/*" (([^*] | ("*" [^/]))*) "*""/") {
-                for (const unsigned char *s = yypmatch[2]; s < yypmatch[3]; s++) {
+                for (const char *s = yypmatch[2]; s < yypmatch[3]; s++) {
                     if (*s == '\n') {
                         line_no++;
                     }
@@ -64,7 +64,7 @@ int preprocess(const std::string &filename, std::ostream &out) {
             }
 
             "#include \"" (.+) "\"" {
-                path inc_file(extract_match(yypmatch[2], yypmatch[3]));
+                path inc_file(extract_str(yypmatch[2], yypmatch[3]));
                 try {
                     preprocess((parent / inc_file).string(), out);
                 } catch(...) {
@@ -82,7 +82,7 @@ int preprocess(const std::string &filename, std::ostream &out) {
                 continue;
             }
 
-            [^] {out << *(in.tok);continue;}
+            [^] {out << yych;continue;}
         */
     }
 

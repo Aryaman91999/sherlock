@@ -7,7 +7,7 @@
 
 
 input_t::input_t(const std::string &f, int max_fill)
-        : buf(std::make_unique<unsigned char[]>(SIZE * max_fill)),
+        : buf(std::make_unique<char[]>(SIZE * max_fill)),
           lim(buf.get() + SIZE),
           cur(lim),
           mar(lim),
